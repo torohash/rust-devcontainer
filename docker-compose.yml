@@ -1,5 +1,6 @@
 services:
   app:
+    user: "${USER_ID:-1000}:${GROUP_ID:-1000}"
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,6 +10,6 @@ services:
         USER_NAME: ${USER_NAME:-vscode}
     volumes:
       - ../app/:/opt/app
-      - ~/.ssh:/root/.ssh:ro # 読み取り専用としてssh用の秘密鍵をマウント。
+      - ~/.ssh:/home/${USER_NAME:-vscode}/.ssh:ro # 読み取り専用としてssh用の秘密鍵をマウント。
     stdin_open: true
     tty: true
