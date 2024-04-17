@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1000}
+        USER_NAME: ${USER_NAME:-vscode}
+    volumes:
+      - ../app/:/opt/app
+      - ~/.ssh:/root/.ssh:ro # 読み取り専用としてssh用の秘密鍵をマウント。
+    stdin_open: true
+    tty: true
