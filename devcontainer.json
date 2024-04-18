@@ -20,8 +20,6 @@
         "eamodio.gitlens",  // GitLens: Git supercharged
         "donjayamanne.githistory",  // Git History: View and search Git history
         "mhutchie.git-graph",  // Git Graph: View a Git Graph of your repository
-        "leodevbro.blockman",  // Blockman: Block comment/uncomment
-        "pkief.material-icon-theme",  // Material Icon Theme: Material Design icons
         "gruntfuggly.todo-tree"  // Todo Tree: Show TODO, FIXME, etc. comments
       ]
     }
