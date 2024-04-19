@@ -14,7 +14,7 @@ RUN echo "source /usr/share/bash-completion/completions/git" >> /home/${USER_NAM
     echo "source /etc/bash_completion.d/git-prompt" >> /home/${USER_NAME}/.bashrc
 
 # プロンプトの設定
-RUN echo "PROMPT_COMMAND='PS1_CMD1=\$(__git_ps1 \" (%s)\")'; PS1='\[\e[92m\]\u@\h\[\e[0m\]:\[\e[38;5;33m\]\w\[\e[38;5;208m\]\${PS1_CMD1}\[\e[0m\]\\$ '" >> /home/${USER_NAME}/.bashrc
+RUN echo "PROMPT_COMMAND='PS1_CMD1=\$(__git_ps1 \" (%s)\")'; PS1='\[\e[38;5;40m\]\u@\h\[\e[0m\]:\[\e[38;5;39m\]\w\[\e[38;5;214m\]\${PS1_CMD1}\[\e[0m\]\\$ '" >> /home/${USER_NAME}/.bashrc
 
 USER ${USER_NAME}
 

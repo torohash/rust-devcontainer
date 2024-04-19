@@ -1,6 +1,6 @@
 {
   "name": "Rust Development Container",
-  "dockerComposeFile": "docker-compose.yml",
+  "dockerComposeFile": "compose.yml",
   "service": "app",
   "workspaceFolder": "/opt/app",
 
