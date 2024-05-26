@@ -1,4 +1,4 @@
-FROM rust:1.77.0
+FROM rust:1.78.0
 
 ARG USER_ID
 ARG GROUP_ID
@@ -7,7 +7,7 @@ ARG USER_NAME
 RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
     useradd -m -u ${USER_ID} -g ${USER_NAME} ${USER_NAME}
 
-RUN apt update && apt install git bash-completion -y && apt clean
+RUN apt update && apt install git bash-completion tree -y && apt clean
 
 # Gitのタブ補完有効化と__git_ps1コマンドの利用
 RUN echo "source /usr/share/bash-completion/completions/git" >> /home/${USER_NAME}/.bashrc && \
