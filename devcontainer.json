@@ -9,7 +9,7 @@
       "extensions": [
         "rust-lang.rust-analyzer",  // Rust Analyzer: Rust Language Server
         "vadimcn.vscode-lldb",  // LLDB Debugger: Native debugger for Rust
-        "serayuzgur.crates",  // Crates: Cargo.toml dependencies viewer
+        "fill-labs.dependi",  // dependi
         "streetsidesoftware.code-spell-checker", // Code Spell Checker: Spelling checker for source code
         "tamasfe.even-better-toml",  // Even Better TOML: TOML language
         "oderwat.indent-rainbow",  // Indent Rainbow: Colorizes indentation in source code
