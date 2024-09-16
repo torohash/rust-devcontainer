@@ -13,8 +13,6 @@
         "streetsidesoftware.code-spell-checker", // Code Spell Checker: Spelling checker for source code
         "tamasfe.even-better-toml",  // Even Better TOML: TOML language
         "oderwat.indent-rainbow",  // Indent Rainbow: Colorizes indentation in source code
-        "github.copilot",  // GitHub Copilot: AI pair programmer
-        "github.copilot-chat",  // GitHub Copilot Chat: Chat with GitHub Copilot
         "christian-kohler.path-intellisense",  // Path Intellisense: Autocompletes filenames
         "shardulm94.trailing-spaces",  // Trailing Spaces: Highlights trailing spaces
         "eamodio.gitlens",  // GitLens: Git supercharged
