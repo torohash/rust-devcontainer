@@ -9,6 +9,9 @@ RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
 
 RUN apt update && apt install git bash-completion tree -y && apt clean
 
+# Clippyをインストール
+RUN rustup component add clippy
+
 # Gitのタブ補完有効化と__git_ps1コマンドの利用
 RUN echo "source /usr/share/bash-completion/completions/git" >> /home/${USER_NAME}/.bashrc && \
     echo "source /etc/bash_completion.d/git-prompt" >> /home/${USER_NAME}/.bashrc

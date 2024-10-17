@@ -21,6 +21,9 @@
         "gruntfuggly.todo-tree",  // Todo Tree: Show TODO, FIXME, etc. comments
         "iliazeus.vscode-ansi"
       ]
+    },
+    "settings": {
+      "rust-analyzer.check.command": "clippy"
     }
   }
 }
