@@ -19,7 +19,8 @@
         "donjayamanne.githistory",  // Git History: View and search Git history
         "mhutchie.git-graph",  // Git Graph: View a Git Graph of your repository
         "gruntfuggly.todo-tree",  // Todo Tree: Show TODO, FIXME, etc. comments
-        "iliazeus.vscode-ansi"
+        "iliazeus.vscode-ansi",
+        "pkief.material-icon-theme"
       ]
     },
     "settings": {
