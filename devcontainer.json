@@ -1,30 +1,66 @@
 {
-  "name": "Rust Development Container",
-  "dockerComposeFile": "compose.yml",
-  "service": "app",
-  "workspaceFolder": "/opt/app",
-
+  "name": "Rust MCP Development",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "customizations": {
     "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash"
+          }
+        },
+        "workbench.iconTheme": "material-icon-theme",
+        "editor.formatOnSave": true,
+        "[rust]": {
+          "editor.tabSize": 4,
+          "editor.defaultFormatter": "rust-lang.rust-analyzer"
+        },
+        "[json]": {
+          "editor.tabSize": 2
+        },
+        "[jsonc]": {
+          "editor.tabSize": 2
+        },
+        "rust-analyzer.check.command": "clippy",
+        "rust-analyzer.check.extraArgs": ["--", "-W", "clippy::all"],
+        "rust-analyzer.rustfmt.extraArgs": ["--edition", "2021"],
+        "editor.codeActionsOnSave": {
+          "source.fixAll": "always"
+        }
+      },
       "extensions": [
-        "rust-lang.rust-analyzer",  // Rust Analyzer: Rust Language Server
-        "vadimcn.vscode-lldb",  // LLDB Debugger: Native debugger for Rust
-        "fill-labs.dependi",  // dependi
-        "streetsidesoftware.code-spell-checker", // Code Spell Checker: Spelling checker for source code
-        "tamasfe.even-better-toml",  // Even Better TOML: TOML language
-        "oderwat.indent-rainbow",  // Indent Rainbow: Colorizes indentation in source code
-        "christian-kohler.path-intellisense",  // Path Intellisense: Autocompletes filenames
-        "shardulm94.trailing-spaces",  // Trailing Spaces: Highlights trailing spaces
-        "eamodio.gitlens",  // GitLens: Git supercharged
-        "donjayamanne.githistory",  // Git History: View and search Git history
-        "mhutchie.git-graph",  // Git Graph: View a Git Graph of your repository
-        "gruntfuggly.todo-tree",  // Todo Tree: Show TODO, FIXME, etc. comments
-        "iliazeus.vscode-ansi",
-        "pkief.material-icon-theme"
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates",
+        "vadimcn.vscode-lldb",
+        "streetsidesoftware.code-spell-checker",
+        "oderwat.indent-rainbow",
+        "christian-kohler.path-intellisense",
+        "shardulm94.trailing-spaces",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
+        "mhutchie.git-graph",
+        "gruntfuggly.todo-tree",
+        "pkief.material-icon-theme",
+        "rooveterinaryinc.roo-cline"
       ]
-    },
-    "settings": {
-      "rust-analyzer.check.command": "clippy"
     }
-  }
+  },
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "workspaceMount": "source=${localWorkspaceFolder},target=/opt/app,type=bind,consistency=cached",
+  "workspaceFolder": "/opt/app",
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached,readonly"
+  ],
+  "runArgs": [
+    "--network=mcp-network",
+    "--hostname=rust-dev",
+    "--name",
+    "rust-dev"
+  ],
+  "initializeCommand": "docker network inspect mcp-network >/dev/null 2>&1 || docker network create mcp-network"
 }

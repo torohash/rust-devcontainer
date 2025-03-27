@@ -1,27 +1,35 @@
-FROM rust:1.81.0
+FROM rust:1.85.1
 
-ARG USER_ID
-ARG GROUP_ID
-ARG USER_NAME
+# 必要なパッケージのインストール
+RUN apt update && \
+    apt install -y git bash-completion tree vim curl &&\
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
-    useradd -m -u ${USER_ID} -g ${USER_NAME} ${USER_NAME}
+# Rustツールのインストール
+RUN rustup component add clippy rustfmt
 
-RUN apt update && apt install git bash-completion tree -y && apt clean
+# ホスト名の設定
+RUN echo "rust-dev" > /etc/hostname
 
-# Clippyをインストール
-RUN rustup component add clippy
+# vscodeユーザーの作成（1000:1000）
+RUN groupadd --gid 1000 vscode && \
+    useradd --uid 1000 --gid 1000 -m vscode && \
+    mkdir -p /home/vscode/.config && \
+    chown -R vscode:vscode /home/vscode
 
 # Gitのタブ補完有効化と__git_ps1コマンドの利用
-RUN echo "source /usr/share/bash-completion/completions/git" >> /home/${USER_NAME}/.bashrc && \
-    echo "source /etc/bash_completion.d/git-prompt" >> /home/${USER_NAME}/.bashrc
+RUN echo "source /usr/share/bash-completion/completions/git" >> /home/vscode/.bashrc && \
+    echo "if [ -f /etc/bash_completion.d/git-prompt ]; then source /etc/bash_completion.d/git-prompt; fi" >> /home/vscode/.bashrc
 
-# プロンプトの設定
-RUN echo "PROMPT_COMMAND='PS1_CMD1=\$(__git_ps1 \" (%s)\")'; PS1='\[\e[38;5;40m\]\u@\h\[\e[0m\]:\[\e[38;5;39m\]\w\[\e[38;5;214m\]\${PS1_CMD1}\[\e[0m\]\\$ '" >> /home/${USER_NAME}/.bashrc
+# プロンプトの設定（ホスト名を固定）
+RUN echo "PROMPT_COMMAND='PS1_CMD1=\$(__git_ps1 \" (%s)\")'; PS1='\[\e[38;5;40m\]\u@mcp-dev\[\e[0m\]:\[\e[38;5;39m\]\w\[\e[38;5;214m\]\${PS1_CMD1}\[\e[0m\]\\$ '" >> /home/vscode/.bashrc
 
 # デフォルトシェルをbashに設定
-RUN chsh -s /bin/bash ${USER_NAME}
+RUN chsh -s /bin/bash vscode
 
-USER ${USER_NAME}
+# ホームディレクトリの所有権を確保
+RUN chown -R vscode:vscode /home/vscode
 
+USER vscode
 WORKDIR /opt/app

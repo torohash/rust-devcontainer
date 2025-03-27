@@ -1,30 +1,59 @@
-# Rustプロジェクト用のDevContainer設定
+# MCP Rust開発プロジェクト
 
-このディレクトリには、Rustプロジェクトの開発環境をDockerコンテナ内に構築するための設定ファイルが含まれています。
+## 開発環境のセットアップ
 
-## 前提条件
+このプロジェクトは VS Code Remote Containers を使用して開発環境を構築します。
+
+### 前提条件
 
 - Docker
-- Docker Compose
-- Visual Studio Code（VSCode）
-- VSCodeの拡張機能「Dev Containers」
+- Visual Studio Code
+- Remote - Containers 拡張機能
 
-## 使用方法
+### セットアップ手順
 
-1. このリポジトリをgit cloneする際に、クローン先のディレクトリ名を`.devcontainer`にしてください。```git clone <リポジトリのURL> .devcontainer```
-2. VSCodeで、このプロジェクトのルートディレクトリを開きます。
-3. 「Dev Containers」拡張機能を使用して、コンテナ内で開発環境を開きます。
-4. コマンドパレットを開き（`Ctrl+Shift+P`）、「Dev Containers: Reopen in Container...」を選択します。
-5. コンテナ内で開発環境が構築されます。これには数分かかる場合があります。
-6. 開発環境の準備が完了すると、コンテナ内のワークスペース（`/opt/app`）でターミナルが開きます。
-7. ここから、Rustプロジェクトの開発を開始できます。
+1. リポジトリをクローン
 
-## 注意点
+```
+git clone <repository-url> .devcontainer
+```
 
-- SSH鍵の権限に注意してください。必要に応じて、`Dockerfile`内で適切な所有者とパーミッションを設定してください。
-- 機密情報（APIキー、データベースの認証情報など）は、`.env`ファイルなどを使用して管理し、`.gitignore`ファイルで除外してください。
+2. VS Code のコマンドパレットから Remote-Containers: Reopen in Container を選択
 
-## TIPS
+3. コンテナ内で初期化
 
-- コンテナ内でRustプロジェクトを作成する場合は、`cargo init .`コマンドを使用してください。
-- デフォルトのユーザーを変更したい場合は、.envファイルを作成し、docker-compose.ymlでそれを読み込みUSER_IDなどを上書きしてください。
+Cargoプロジェクトを新規作成する場合：
+```
+cargo init
+```
+
+既存のCargoプロジェクトを使用する場合：
+```
+cargo build
+```
+
+## ネットワーク設定
+
+この DevContainer は以下のネットワーク設定を持っています：
+
+- **MCP ネットワーク** (`--network=mcp-network`)
+
+  - 専用の Docker ネットワーク
+  - 他の MCP 関連コンテナとの通信用
+  - 自動ネットワーク作成: コンテナ起動前に自動的に作成されるため、手動での作成は不要です
+  - 既にネットワークが存在する場合は、既存のものが使用されます
+
+
+## 権限設定
+
+この DevContainer は以下の権限設定を持っています：
+
+- **ユーザー ID 同期** (`updateRemoteUserUID: true`)
+
+  - コンテナ内のユーザー ID をホスト側のユーザー ID に自動的に合わせる
+  - これにより、ファイル所有権の問題を防止
+
+- **SSH キーのマウント**
+  - ホストの`~/.ssh`ディレクトリをコンテナ内の`/home/vscode/.ssh`に読み取り専用でマウント
+  - これにより、コンテナ内で git コマンドを使用する際にホストの SSH 鍵を使用可能
+  - セキュリティのため読み取り専用でマウントされる
