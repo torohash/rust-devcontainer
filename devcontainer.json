@@ -25,8 +25,15 @@
           "editor.tabSize": 2
         },
         "rust-analyzer.check.command": "clippy",
-        "rust-analyzer.check.extraArgs": ["--", "-W", "clippy::all"],
-        "rust-analyzer.rustfmt.extraArgs": ["--edition", "2021"],
+        "rust-analyzer.check.extraArgs": [
+          "--",
+          "-W",
+          "clippy::all"
+        ],
+        "rust-analyzer.rustfmt.extraArgs": [
+          "--edition",
+          "2024"
+        ],
         "editor.codeActionsOnSave": {
           "source.fixAll": "always"
         }
