@@ -23,7 +23,7 @@ RUN echo "source /usr/share/bash-completion/completions/git" >> /home/vscode/.ba
     echo "if [ -f /etc/bash_completion.d/git-prompt ]; then source /etc/bash_completion.d/git-prompt; fi" >> /home/vscode/.bashrc
 
 # プロンプトの設定（ホスト名を固定）
-RUN echo "PROMPT_COMMAND='PS1_CMD1=\$(__git_ps1 \" (%s)\")'; PS1='\[\e[38;5;40m\]\u@mcp-dev\[\e[0m\]:\[\e[38;5;39m\]\w\[\e[38;5;214m\]\${PS1_CMD1}\[\e[0m\]\\$ '" >> /home/vscode/.bashrc
+RUN echo "PROMPT_COMMAND='PS1_CMD1=\$(__git_ps1 \" (%s)\")'; PS1='\[\e[38;5;40m\]\u@\h\[\e[0m\]:\[\e[38;5;39m\]\w\[\e[38;5;214m\]\${PS1_CMD1}\[\e[0m\]\\$ '" >> /home/vscode/.bashrc
 
 # デフォルトシェルをbashに設定
 RUN chsh -s /bin/bash vscode

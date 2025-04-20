@@ -1,5 +1,5 @@
 {
-  "name": "Rust MCP Development",
+  "name": "Rust Development",
   "build": {
     "dockerfile": "Dockerfile"
   },
